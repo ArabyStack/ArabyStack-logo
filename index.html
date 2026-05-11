@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ArabyStack — معرض الشعارات</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&family=Tajawal:wght@400;700;800&family=Space+Mono:wght@400;700&family=Bebas+Neue&family=Rajdhani:wght@600;700&family=Orbitron:wght@700;800&family=Cairo:wght@400;700;800&family=Exo+2:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #4E148C;
+    --purple-mid: #7C3AED;
+    --purple-light: #a78bfa;
+    --cyan: #00DFFC;
+    --cyan-dark: #00AECC;
+    --dark: #0a0a14;
+    --dark2: #12101e;
+    --dark3: #1a1035;
+    --white: #ffffff;
+    --gray: #f5f4fb;
+    --gray2: #ece9f7;
+    --text: #1a1a2e;
+    --text2: #555;
+    --card-bg: #ffffff;
+    --card-border: rgba(78,20,140,0.12);
+    --page-bg: #f0edfb;
+  }
+  [data-theme="dark"] {
+    --card-bg: #16122a;
+    --card-border: rgba(124,58,237,0.2);
+    --page-bg: #0a0a14;
+    --text: #f0edfb;
+    --text2: #888;
+    --gray: #1a1730;
+    --gray2: #13102a;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--page-bg);
+    color: var(--text);
+    font-family: 'Cairo', sans-serif;
+    min-height: 100vh;
+    transition: background .3s, color .3s;
+  }
+
+  /* ── particles bg ── */
+  #particles {
+    position: fixed; inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: .18;
+    animation: float linear infinite;
+  }
+  @keyframes float {
+    from { transform: translateY(100vh) rotate(0deg); opacity:0; }
+    10%  { opacity:.18; }
+    90%  { opacity:.18; }
+    to   { transform: translateY(-100px) rotate(720deg); opacity:0; }
+  }
+
+  /* ── header ── */
+  header {
+    position: relative; z-index: 10;
+    text-align: center;
+    padding: 60px 20px 30px;
+  }
+  .header-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    animation: fadeDown .6s ease both;
+  }
+  @keyframes fadeDown {
+    from { opacity:0; transform: translateY(-20px); }
+    to   { opacity:1; transform: translateY(0); }
+  }
+  .header-icon {
+    font-family: 'Poppins', sans-serif;
+    font-size: 38px; font-weight: 700; color: var(--purple);
+    display: flex; align-items: center;
+  }
+  .header-icon .ar {
+    font-family: 'Tajawal', sans-serif;
+    color: var(--cyan); font-size: 34px; margin: 0 4px;
+  }
+  .header-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px; font-weight: 700;
+    color: var(--purple); letter-spacing: 2px;
+  }
+  header h1 {
+    font-size: 14px; font-weight: 400;
+    color: var(--text2); letter-spacing: 2px;
+    animation: fadeDown .6s .15s ease both;
+  }
+
+  /* ── controls ── */
+  .controls {
+    position: relative; z-index: 10;
+    display: flex; flex-wrap: wrap;
+    align-items: center; justify-content: center;
+    gap: 10px; padding: 0 20px 30px;
+    animation: fadeDown .6s .25s ease both;
+  }
+  .filter-btn {
+    padding: 7px 18px; border-radius: 50px;
+    border: 1.5px solid var(--purple-mid);
+    background: transparent; color: var(--purple-mid);
+    font-family: 'Cairo', sans-serif; font-size: 13px; font-weight: 700;
+    cursor: pointer; transition: all .2s;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--purple-mid); color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(124,58,237,.3);
+  }
+  .theme-toggle {
+    padding: 7px 18px; border-radius: 50px;
+    border: 1.5px solid #aaa;
+    background: transparent; color: var(--text2);
+    font-family: 'Cairo', sans-serif; font-size: 13px; font-weight: 700;
+    cursor: pointer; transition: all .2s; margin-right: auto;
+  }
+  .theme-toggle:hover { border-color: var(--purple); color: var(--purple); }
+
+  /* ── counter ── */
+  .counter {
+    text-align: center; margin-bottom: 16px;
+    font-size: 13px; color: var(--text2);
+    letter-spacing: 1px;
+  }
+  .count-num { color: var(--purple-mid); font-weight: 700; font-size: 16px; }
+
+  /* ── grid ── */
+  .grid {
+    position: relative; z-index: 5;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 0 30px 60px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  /* ── card ── */
+  .logo-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 18px;
+    padding: 32px 20px 18px;
+    display: flex; flex-direction: column;
+    align-items: center; gap: 18px;
+    transition: transform .25s, box-shadow .25s, opacity .3s;
+    animation: cardIn .5s ease both;
+    position: relative; overflow: hidden;
+  }
+  .logo-card::before {
+    content: '';
+    position: absolute; top:0; left:0; right:0; height:3px;
+    background: linear-gradient(90deg, var(--purple), var(--purple-mid), var(--cyan));
+    opacity: 0; transition: opacity .3s;
+  }
+  .logo-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(78,20,140,.13); }
+  .logo-card:hover::before { opacity: 1; }
+  @keyframes cardIn {
+    from { opacity:0; transform: translateY(30px) scale(.97); }
+    to   { opacity:1; transform: translateY(0) scale(1); }
+  }
+  .logo-card.hidden { display: none; }
+
+  .logo-num {
+    position: absolute; top: 12px; right: 16px;
+    font-size: 11px; color: var(--purple-light);
+    font-weight: 700; letter-spacing: 1px;
+    font-family: 'Poppins', sans-serif;
+  }
+  .logo-wrap {
+    min-height: 70px;
+    display: flex; align-items: center; justify-content: center;
+    width: 100%;
+  }
+  .logo-meta {
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    width: 100%;
+  }
+  .logo-name {
+    font-size: 12px; color: var(--text2);
+    letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600;
+  }
+  .logo-tag {
+    font-size: 10px; padding: 2px 10px; border-radius: 20px;
+    font-weight: 700; letter-spacing: 1px;
+  }
+  .tag-light { background: #f0e7ff; color: #7C3AED; }
+  .tag-dark  { background: #1a1035; color: #a78bfa; }
+  .tag-minimal { background: #e8f5fc; color: #0087a8; }
+  .tag-arabic  { background: #fff0f0; color: #c0392b; }
+  .tag-tech    { background: #e8fdf4; color: #0d6b4a; }
+  .tag-bold    { background: #fff5e0; color: #b05a00; }
+
+  .copy-btn {
+    padding: 8px 20px; border-radius: 10px;
+    border: 1.5px solid var(--card-border);
+    background: var(--gray); color: var(--text2);
+    font-family: 'Cairo', sans-serif; font-size: 12px; font-weight: 700;
+    cursor: pointer; transition: all .2s; width: 100%;
+  }
+  .copy-btn:hover { background: var(--purple); color: #fff; border-color: var(--purple); }
+  .copy-btn.copied { background: #10b981; color: #fff; border-color: #10b981; }
+
+  /* ── section labels ── */
+  .section-label {
+    position: relative; z-index: 10;
+    grid-column: 1/-1;
+    font-size: 11px; letter-spacing: 3px;
+    color: var(--purple-light);
+    font-weight: 700; text-transform: uppercase;
+    padding: 8px 0 4px;
+    border-bottom: 1px solid var(--card-border);
+    margin-bottom: 4px;
+  }
+
+  /* ── toast ── */
+  #toast {
+    position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px);
+    background: #10b981; color: #fff;
+    padding: 12px 28px; border-radius: 50px;
+    font-family: 'Cairo', sans-serif; font-size: 14px; font-weight: 700;
+    z-index: 9999; transition: transform .3s, opacity .3s;
+    opacity: 0; pointer-events: none;
+  }
+  #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+  /* ── search ── */
+  .search-wrap {
+    position: relative; z-index: 10;
+    display: flex; justify-content: center;
+    padding: 0 20px 20px;
+    animation: fadeDown .6s .3s ease both;
+  }
+  .search-wrap input {
+    width: 100%; max-width: 400px;
+    padding: 10px 20px; border-radius: 50px;
+    border: 1.5px solid var(--card-border);
+    background: var(--card-bg); color: var(--text);
+    font-family: 'Cairo', sans-serif; font-size: 14px;
+    outline: none; transition: border .2s;
+  }
+  .search-wrap input:focus { border-color: var(--purple-mid); }
+
+  footer {
+    text-align: center; padding: 30px;
+    font-size: 12px; color: var(--text2);
+    letter-spacing: 1px; position: relative; z-index:5;
+    border-top: 1px solid var(--card-border);
+  }
+
+  /* responsive */
+  @media(max-width:600px){
+    .grid { padding: 0 12px 40px; gap:14px; }
+    .controls { padding: 0 12px 20px; }
+  }
+</style>
+</head>
+<body data-theme="light">
+
+<!-- particles -->
+<div id="particles"></div>
+
+<!-- toast -->
+<div id="toast">✓ تم نسخ الكود!</div>
+
+<!-- header -->
+<header>
+  <div class="header-logo">
+    <div class="header-icon">
+      <span>{</span><span class="ar">ع</span><span>}</span>
+    </div>
+    <div class="header-title">ARABYSTACK</div>
+  </div>
+  <h1>معرض الشعارات — Logo Gallery</h1>
+</header>
+
+<!-- controls -->
+<div class="controls">
+  <button class="theme-toggle" onclick="toggleTheme()">🌙 الوضع الداكن</button>
+  <button class="filter-btn active" onclick="filterCards('all',this)">الكل</button>
+  <button class="filter-btn" onclick="filterCards('light',this)">فاتح</button>
+  <button class="filter-btn" onclick="filterCards('dark',this)">داكن</button>
+  <button class="filter-btn" onclick="filterCards('minimal',this)">مينيمال</button>
+  <button class="filter-btn" onclick="filterCards('arabic',this)">عربي</button>
+  <button class="filter-btn" onclick="filterCards('tech',this)">تك</button>
+  <button class="filter-btn" onclick="filterCards('bold',this)">بولد</button>
+</div>
+
+<div class="search-wrap">
+  <input type="text" placeholder="ابحث عن تصميم..." oninput="searchCards(this.value)">
+</div>
+
+<div class="counter"><span class="count-num" id="cnt">40</span> شعار</div>
+
+<!-- grid -->
+<div class="grid" id="grid">
+
+<!-- ═══ SECTION: CLASSIC ═══ -->
+<div class="section-label">كلاسيك</div>
+
+<!-- 1 -->
+<div class="logo-card" data-tags="light classic">
+  <span class="logo-num">#01</span>
+  <div class="logo-wrap">
+    <div id="l1" style="display:flex;align-items:center;gap:8px;font-family:'Poppins',sans-serif;user-select:none;">
+      <div style="font-size:42px;font-weight:700;color:#4E148C;display:flex;align-items:center;">
+        <span>{</span><span style="font-family:'Tajawal',sans-serif;color:#00DFFC;font-size:38px;margin:0 4px;line-height:1;">ع</span><span>}</span>
+      </div>
+      <div style="font-size:26px;font-weight:600;color:#4E148C;letter-spacing:1.5px;margin-top:4px;">ARABYSTACK</div>
+    </div>
+  </div>
+  <div class="logo-meta">
+    <span class="logo-name">الأصلي</span>
+    <span class="logo-tag tag-light">فاتح · كلاسيك</span>
+  </div>
+  <button class="copy-btn" onclick="copyLogo('l1',this)">نسخ الكود</button>
+</div>
+
+<!-- 2 -->
+<div class="logo-card" data-tags="light classic">
+  <span class="logo-num">#02</span>
+  <div class="logo-wrap">
+    <div id="l2" style="display:flex;align-items:center;gap:12px;font-family:'Bebas Neue',sans-serif;user-select:none;">
+      <div style="width:52px;height:52px;background:#4E148C;border-radius:8px;display:flex;align-items:center;justify-content:center;">
+        <span style="font-family:'Tajawal',sans-serif;color:#fff;font-size:30px;font-weight:800;">ع</span>
+      </div>
+      <div style="display:flex;flex-direction:column;line-height:1;">
+        <span style="font-size:28px;color:#4E148C;letter-spacing:3px;">ARABY</span>
+        <span style="font-size:28px;color:#00AECC;letter-spacing:3px;">STACK</span>
+      </div>
+    </div>
+  </div>
+  <div class="logo-meta">
+    <span class="logo-name">مربع + طبقتين</span>
+    <span class="logo-tag tag-light">فاتح · بولد</span>
+  </div>
+  <button class="copy-btn" onclick="copyLogo('l2',this)">نسخ الكود</button>
+</div>
+
+<!-- 3 -->
+<div class="logo-card" data-tags="light minimal">
+  <span class="logo-num">#03</span>
+  <div class="logo-wrap">
+    <div id="l3" style="display:flex;align-items:center;gap:8px;font-family:'Poppins',sans-serif;user-select:none;">
+      <span style="font-size:38px;font-weight:900;color:#4E148C;letter-spacing:-2px;">A</span>
+      <div style="display:flex;flex-direction:column;gap:3px;">
+        <div style="font-size:14px;font-weight:700;color:#4E148C;letter-spacing:3px;line-height:1;">RABY</div>
+        <div style="width:100%;height:2px;background:#00DFFC;"></div>
+        <div style="font-size:14px;font-weight:700;color:#7C3AED;letter-spacing:3px;line-height:1;">STACK</div>
+      </div>
+    </div>
+  </div>
+  <div class="logo-meta">
+    <span class="logo-name">حرف A بارز</span>
+    <span class="logo-tag tag-minimal">مينيمال</span>
+  </div>
+  <button class="copy-btn" onclick="copyLogo('l3',this)">نسخ الكود</button>
+</div>
+
+<!-- 4 -->
+<div class="logo-card" data-tags="light arabic">
+  <span class="logo-num">#04</span>
+  <div class="logo-wrap">
+    <div id="l4" style="display:flex;flex-direction:column;align-items:center;font-family:'Poppins',sans-serif;user-select:none;gap:2px;">
+      <div style="display:flex;align-items:baseline;gap:0;">
+        <span style="font-size:32px;font-weight:900;color:#4E148C;letter-spacing:-1px;">ARABY</span>
+        <span style="font-size:32px;font-weight:900;color:#00AECC;letter-spacing:-1px;">STACK</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;width:100%;">
+        <div style="flex:1;height:2px;background:#4E148C;"></div>
+        <span style="font-family:'Tajawal',sans-serif;color:#7C3AED;font-size:15px;font-weight:700;">أكاديمية البرمجة</span>
+        <div style="flex:1;height:2px;background:#00AECC;"></div>
+      </div>
+    </div>
+  </div>
+  <div class="logo-meta">
+    <span class="logo-name">مع عنوان عربي</span>
+    <span class="logo-tag tag-arabic">عربي</span>
+  </div>
+  <button class="copy-btn" onclick="copyLogo('l4',this)">نسخ الكود</button>
+</div>
+
+<!-- 5 -->
+<div class="logo-card" data-tags="light bold">
+  <span class="logo-num">#05</span>
+  <div class="logo-wrap">
+    <div id="l5" style="display:flex;flex-direction:column;align-items:center;font-family:'Bebas Neue',sans-serif;user-select:none;gap:2px;">
+      <div style="display:flex;align-items:center;gap:4px;">
+        <div style="width:28px;height:4px;background:#4E148C;border-radius:2px;"></div>
+        <span style="font-size:13px;color:#7C3AED;letter-spacing:4px;font-family:'Poppins',sans-serif;font-weight:600;">CODING ACADEMY</span>
+        <div style="width:28px;height:4px;background:#00AECC;border-radius:2px;"></div>
+      </div>
+      <div style="font-size:44px;color:#1a1a2e;letter-spacing:4px;line-height:1;">ARABYSTACK</div>
+      <div style="display:flex;gap:6px;margin-top:2px;">
+        <div style="width:8px;height:8px;border-radius:50%;background:#4E148C;"></div>
+        <div style="width:8px;height:8px;border-radius:50%;background:#7C3AED;"></div>
+        <div style="width:8px;height:8px;border-radius:50%;background:#00DFFC;"></div>
+      </div>
+    </div>
+  </div>
+  <div class="logo-meta">
+    <span class="logo-name">بولد كلاسيك</span>
+    <span class="logo-tag tag-bold">بولد</span>
+  </div>
+  <button class="copy-btn" onclick="copyLogo('l5',this)">نسخ الكود</button>
+</div>
+
+<!-- 6 -->
+<div class="logo-card" data-tags="light minimal">
+  <span class="logo-num">#06</span>
+  <div class="logo-wrap">
+    <div id="l6" style="display:flex;align-items:center;gap:10px;font-family:'Poppins',sans-serif;user-select:none;">
+      <div style="width:48px;height:48px;border-radius:50%;background:#f5f0ff;border:2px dashed #7C3AED;display:flex;align-items:center;justify-content:center;">
+        <span style="font-family:'Tajawal',sans-serif;color:#4E148C;font-size:24px;font-weight:800;">ع</span>
+      </div>
+      <div style="border-left:3px solid #4E148C;padding-left:10px;">
+        <div style="font-size:22px;font-weight:800;color:#4E148C;letter-spacing:1px;line-height:1.1;">ARABY</div>
+        <div style="font-size:22px;font-weight:800;color:#00AECC;letter-spacing:1px;line-height:1.1;">STACK</div>
+      </div>
+    </div>
+  </div>
+  <div class="logo-meta">
+    <span class="logo-name">دائرة منقطة</span>
+    <span class="logo-tag tag-minimal">مينيمال</span>
+  </div>
+  <button class="copy-btn" onclick="copyLogo('l6',this)">نسخ الكود</button>
+</div>
+
+<!-- ═══ SECTION: DARK ═══ -->
+<div class="section-label">داكن</div>
+
+<!-- 7 -->
+<div class="logo-card" data-tags="dark tech" style="background:#0d0d0d;border-color:#222;">
+  <span class="logo-num" style="color:#7C3AED;">#07</span>
+  <div class="logo-wrap">
+    <div id="l7" style="display:flex;flex-direction:column;align-items:flex-start;font-family:'Space Mono',monospace;user-select:none;gap:2px;">
+      <span style="color:#555;font-size:11px;">// البرمجة بالعربي</span>
+      <div style="display:flex;align-items:center;gap:6px;">
+        <span style="color:#00DFFC;font-size:28px;font-weight:700;">&lt;</span>
+        <span style="color:#fff;font-size:22px;font-weight:700;letter-spacing:2px;">ARABY</span>
+        <span style="color:#7C3AED;font-size:22px;font-weight:700;letter-spacing:2px;">STACK</span>
+        <span style="color:#00DFFC;font-size:28px;font-weight:700;">/&gt;</span>
+      </div>
+    </div>
+  </div>
+  <div class="logo-meta">
+    <span class="logo-name" style="color:#666;">تيرمينال</span>
+    <span class="logo-tag tag-dark">داكن · تك</span>
+  </div>
+  <button class="copy-btn" onclick="copyLogo('l7',this)">نسخ الكود</button>
+</div>
+
+<!-- 8 -->
+<div class="logo-card" data-tags="dark tech" style="background:#1a1035;border-color:#2d1f5e;">
+  <span class="logo-num" style="color:#a78bfa;">#08</span>
+  <div class="logo-wrap">
+    <div id="l8" style="display:flex;align-items:center;gap:12px;user-select:none;">
+      <div style="position:relative;width:56px;height:56px;">
+        <div style="position:absolute;inset:0;border-radius:50%;border:2.5px solid #7C3AED;"></div>
+        <div style="position:absolute;inset:5px;border-radius:50%;border:1px solid rgba(124,58,237,0.35);"></div>
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
+          <span style="font-family:'Tajawal',sans-serif;color:#a78bfa;font-size:26px;font-weight:800;">ع</span>
+        </div>
+      </div>
+      <div style="font-family:'Orbitron',sans-serif;display:flex;flex-direction:column;line-height:1.2;">
+        <span style="font-size:18px;font-weight:800;color:#fff;letter-spacing:2px;">ARABY</span>
+        <span style="font-size:18px;font-weight:800;color:#7C3AED;letter-spacing:2px;">STACK</span>
+      </div>
+    </div>
+  </div>
+  <div class="logo-meta">
+    <span class="logo-name" style="color:#666;">دائري داكن</span>
+    <span class="logo-tag tag-dark">داكن · تك</span>
+  </div>
+  <button class="copy-btn" onclick="copyLogo('l8',this)">نسخ الكود</button>
+</div>
+
+<!-- 9 -->
+<div class="logo-card" data-tags="dark bold" style="background:#0a0a14;border-color:#1a0d30;">
+  <span class="logo-num" style="color:#7C3AED;">#09</span>
+  <div class="logo-wrap">
+    <div id="l9" style="display:flex;align-items:center;gap:10px;user-select:none;">
+      <div style="position:relative;width:52px;height:52px;">
+        <div style="position:absolute;inset:0;border-radius:10px;background:#7C3AED;transform:rotate(45deg);"></div>
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
+          <span style="font-family:'Tajawal',sans-serif;color:#fff;font-size:26px;font-weight:800;position:relative;z-index:1;">ع</span>
+        </div>
+      </div>
+      <div style="font-family:'Rajdhani',sans-serif;">
+        <div style="font-size:28px;font-weight:700;color:#fff;letter-spacing:2px;line-height:1;">ARABYSTACK</div>
+        <div style="font-size:11px;color:#7C3AED;letter-spacing:4px;font-weight:600;margin-top:2px;">البرمجة العربية</div>
+      </div>
+    </div>
+  </div>
+  <div class="logo-meta">
+    <span class="logo-name" style="color:#666;">معين دوران</span>
+    <span class="logo-tag tag-dark">داكن · بولد</span>
+  </div>
+  <button class="copy-btn" onclick="copyLogo('l9',this)">نسخ الكود</button>
+</div>
+
+<!-- 10 -->
+<div class="logo-card" data-tags="dark tech" style="background:#0d0d0d;border-color:#222;">
+  <span class="logo-num" style="color:#7C3AED;">#10</span>
+  <div class="logo-wrap">
+    <div id="l10" style="display:flex;align-items:center;gap:10px;user-select:none;">
+      <div style="display:flex;flex-direction:column;gap:2px;align-items:flex-end;">
+        <div style="display:flex;gap:2px;">
+          <div style="width:12px;height:12px;border-radius:2px;background:#7C3AED;"></div>
+          <div style="width:12px;height:12px;border-radius:2px;background:#7C3AED;opacity:.6;"></div>
+          <div style="width:12px;height:12px;border-radius:2px;background:#7C3AED;opacity:.3;"></div>
+        </div>
+        <div style="display:flex;gap:2px;">
+          <div style="width:12px;height:12px;border-radius:2px;background:#00DFFC;"></div>
+          <div style="width:12px;height:12px;border-radius:2px;background:#00DFFC;opacity:.6;"></div>
+          <div style="width:12px;height:12px;border-radius:2px;background:#00DFFC;opacity:.3;"></div>
+        </div>
+        <div style="display:flex;gap:2px;">
+          <div style="width:12px;height:12px;border-radius:2px;background:#fff;opacity:.3;"></div>
+          <div style="width:12px;height:12px;border-radius:2px;background:#fff;opacity:.2;"></div>
+          <div style="width:12px;height:12px;border-radius:2px;background:#fff;opacity:.1;"></div>
+        </div>
+      </div>
+      <div style="font-family:'Rajdhani',sans-serif;font-size:26px;font-weight:700;color:#fff;letter-spacing:2px;">ARABYSTACK</div>
+    </div>
+  </div>
+  <div class="logo-meta">
+    <span class="logo-name" style="color:#666;">شبكة بكسل</span>
+    <span class="logo-tag tag-dark">داكن · تك</span>
+  </div>
+  <button class="copy-btn" onclick="copyLogo('l10',this)">نسخ الكود</button>
+</div>
+
+<!-- 11 -->
+<div class="logo-card" data-tags="dark tech" style="background:#1a1035;border-color:#2d1f5e;">
+  <span class="logo-num" style="color:#a78bfa;">#11</span>
+  <div class="logo-wrap">
+    <div id="l11" style="display:flex;flex-direction:column;align-items:center;gap:6px;user-select:none;">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div style="width:30px;height:2px;background:#7C3AED;opacity:0.5;"></div>
+        <span style="font-family:'Tajawal',sans-serif;color:#a78bfa;font-size:14px;font-weight:700;letter-spacing:4px;">أكاديمية</span>
+        <div style="width:30px;height:2px;background:#00DFFC;opacity:0.5;"></div>
+      </div>
+      <div style="font-family:'Orbitron',sans-serif;font-size:26px;font-weight:800;color:#fff;letter-spacing:4px;">
+        <span style="color:#a78bfa;">A</span>RABY<span style="color:#00DFFC;">S</span>TACK
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div style="width:50px;height:1px;background:rgba(255,255,255,0.2);"></div>
+        <span style="font-family:'Space Mono',monospace;color:rgba(255,255,255,0.4);font-size:9px;letter-spacing:2px;">{ البرمجة بالعربي }</span>
+        <div style="width:50px;height:1px;background:rgba(255,255,255,0.2);"></div>
+      </div>
+    </div>
+  </div>
+  <div class="logo-meta">
+    <span class="logo-name" style="color:#666;">أورتبيتال فضائي</span>
+    <span class="logo-tag tag-dark">داكن · تك</span>
+  </div>
+  <button class="copy-btn" onclick="copyLogo('l11',this)">نسخ الكود</button>
+</div>
+
+<!-- 12 -->
+<div class="logo-card" data-tags="dark tech" style="background:#0d0d0d;border-color:#1a0d30;">
+  <span class="logo-num" style="color:#7C3AED;">#12</span>
+  <div class="logo-wrap">
+    <div id="l12" style="display:flex;align-items:center;gap:10px;user-select:none;">
+      <div style="font-family:'Space Mono',monospace;font-size:12px;color:#444;line-height:1.6;text-align:left;">
+        <div><span style="color:#7C3AED;">const</span> <span style="color:#fff;">stack</span> = {</div>
+        <div>&nbsp;&nbsp;<span style="color:#00DFFC;">lang</span>: <span style="color:#a3e635;">"arabic"</span>,</div>
+        <div>&nbsp;&nbsp;<span style="color:#00DFFC;">type</span>: <span style="color:#a3e635;">"academy"</span></div>
+        <div>}</div>
+      </div>
+    </div>
+  </div>
+  <div class="logo-meta">
+    <span class="logo-name" style="color:#666;">كود JSON</span>
+    <span class="logo-tag tag-dark">داكن · تك</span>
+  </div>
+  <button class="copy-btn" onclick="copyLogo('l12',this)">نسخ الكود</button>
+</div>
+
+<!-- ═══ SECTION: TECH ═══ -->
+<div class="section-label">تك وتقني</div>
+
+<!-- 13 -->
+<div class="logo-card" data-tags="light tech">
+  <span class="logo-num">#13</span>
+  <div class="logo-wrap">
+    <div id="l13" style="display:flex;align-items:center;gap:10px;font-family:'Rajdhani',sans-serif;user-select:none;">
+      <div style="width:54px;height:54px;border-radius:12px;border:2px solid #4E148C;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
+        <div style="position:absolute;bottom:0;left:0;right:0;height:40%;background:#4E148C;opacity:0.1;"></div>
+        <span style="font-family:'Tajawal',sans-serif;font-size:28px;font-weight:800;color:#4E148C;">ع</span>
+      </div>
+      <div>
+        <div style="font-size:24px;font-weight:700;color:#1a1a2e;letter-spacing:2px;line-height:1;">ARABYSTACK</div>
+        <div style="font-size:11px;color:#7C3AED;letter-spacing:3px;font-weight:600;">CODING ACADEMY</div>
+      </div>
+    </div>
+  </div>
+  <div class="logo-meta">
+    <span class="logo-name">بروفيشنال</span>
+    <span class="logo-tag tag-tech">تك</span>
+  </div>
+  <button class="copy-btn" onclick="copyLogo('l13',this)">نسخ الكود</button>
+</div>
+
+<!-- 14 -->
+<div class="logo-card" data-tags="light tech">
+  <span class="logo-num">#14</span>
+  <div class="logo-wrap">
+    <div id="l14" style="display:flex;align-items:center;gap:10px;font-family:'Poppins',sans-serif;user-select:none;">
+      <div style="display:flex;flex-direction:column;gap:3px;">
+        <div style="width:40px;height:10px;background:#4E148C;border-radius:3px;"></div>
+        <div style="width:32px;height:10px;background:#7C3AED;border-radius:3px;"></div>
+        <div style="width:24px;height:10px;background:#00DFFC;border-radius:3px;"></div>
+      </div>
+      <div style="display:flex;flex-direction:column;">
+        <span style="font-size:22px;font-weight:800;color:#1a1a2e;letter-spacing:1px;line-height:1.1;">ARABY</span>
+        <span style="font-size:22px;font-weight:800;color:#4E148C;letter-spacing:1px;line-height:1.1;">STACK</span>
+      </div>
+    </div>
+  </div>
+  <div class="logo-meta">
+    <span class="logo-name">أشرطة ستاك</span>
+    <span class="logo-tag tag-tech">تك</span>
+  </div>
+  <button class="copy-btn" onclick="copyLogo('l14',this)">نسخ الكود</button>
+</div>
+
+<!-- 15 -->
+<div class="logo-card" data-tags="dark tech" style="background:#1a1035;border-color:#2d1f5e;">
+  <span class="logo-num" style="color:#a78bfa;">#15</span>
+  <div class="logo-wrap">
+    <div id="l15" style="display:flex;flex-direction:column;align-items:center;gap:6px;user-select:none;">
+      <div style="display:flex;gap:4px;">
+        <div style="width:16px;height:36px;background:#7C3AED;border-radius:4px;opacity:0.5;"></div>
+        <div style="width:16px;height:48px;background:#7C3AED;border-radius:4px;opacity:0.75;"></div>
+        <div style="width:16px;height:60px;background:#7C3AED;border-radius:4px;"></div>
+        <div style="width:16px;height:48px;background:#00DFFC;border-radius:4px;opacity:0.75;"></div>
+        <div style="width:16px;height:36px;background:#00DFFC;border-radius:4px;opacity:0.5;"></div>
+      </div>
+      <div style="font-family:'Orbitron',sans-serif;font-size:18px;font-weight:800;color:#fff;letter-spacing:3px;">ARABYSTACK</div>
+    </div>
+  </div>
+  <div class="logo-meta">
+    <span class="logo-name" style="color:#666;">موجة ستاك</span>
+    <span class="logo-tag tag-dark">داكن · تك</span>
+  </div>
+  <button class="copy-btn" onclick="copyLogo('l15',this)">نسخ الكود</button>
+</div>
+
+<!-- 16 -->
+<div class="logo-card" data-tags="light tech">
+  <span class="logo-num">#16</span>
+  <div class="logo-wrap">
+    <div id="l16" style="display:flex;align-items:center;gap:10px;font-family:'Poppins',sans-serif;user-select:none;">
+      <div style="width:54px;height:54px;border-radius:50%;background:#4E148C;display:flex;align-items:center;justify-content:center;">
+        <span style="font-family:'Tajawal',sans-serif;color:#fff;font-size:28px;font-weight:800;">ع</span>
+      </div>
+      <div>
+        <div style="font-size:22px;font-weight:800;color:#4E148C;letter-spacing:1.5px;">ARABYSTACK</div>
+        <div style="font-size:10px;color:#00AECC;letter-spacing:3px;font-weight:600;margin-top:2px;">أكاديمية البرمجة العربية</div>
+      </div>
+    </div>
+  </div>
+  <div class="logo-meta">
+    <span class="logo-name">دائرة صلبة</span>
+    <span class="logo-tag tag-tech">تك</span>
+  </div>
+  <button class="copy-btn" onclick="copyLogo('l16',this)">نسخ الكود</button>
+</div>
+
+<!-- 17 -->
+<div class="logo-card" data-tags="dark tech" style="background:#0a0a14;border-color:#1a0d30;">
+  <span class="logo-num" style="color:#7C3AED;">#17</span>
+  <div class="logo-wrap">
+    <div id="l17" style="display:flex;align-items:center;gap:10px;user-select:none;">
+      <div style="position:relative;width:50px;height:50px;">
+        <div style="position:absolute;inset:0;border-radius:10px;background:#7C3AED;clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);display:flex;align-items:center;justify-content:center;">
+          <span style="font-family:'Tajawal',sans-serif;color:#fff;font-size:22px;font-weight:800;">ع</span>
+        </div>
+      </div>
+      <div style="font-family:'Orbitron',sans-serif;">
+        <span style="font-size:20px;font-weight:800;color:#fff;letter-spacing:1px;">ARABY</span><span style="font-size:20px;font-weight:800;color:#7C3AED;letter-spacing:1px;">STACK</span>
+      </div>
+    </div>
+  </div>
+  <div class="logo-meta">
+    <span class="logo-name" style="color:#666;">سداسي</span>
+    <span class="logo-tag tag-dark">داكن · تك</span>
+  </div>
+  <button class="copy-btn" onclick="copyLogo('l17',this)">نسخ الكود</button>
+</div>
+
+<!-- ═══ SECTION: MINIMAL ═══ -->
+<div class="section-label">مينيمال</div>
+
+<!-- 18 -->
+<div class="logo-card" data-tags="light minimal">
+  <span class="logo-num">#18</span>
+  <div class="logo-wrap">
+    <div id="l18" style="display:flex;flex-direction:column;align-items:flex-start;font-family:'Poppins',sans-serif;user-select:none;gap:2px;">
+      <div style="font-size:30px;font-weight:900;color:#1a1a2e;letter-spacing:-1px;line-height:1;">
+        <span style="color:#4E148C;">A</span>RABY<span style="color:#00AECC;">S</span>TACK
+      </div>
+      <div style="height:3px;border-radius:2px;background:linear-gradient(90deg,#4E148C,#7C3AED,#00DFFC);width:100%;"></div>
+      <div style="font-size:10px;color:#888;letter-spacing:3px;font-weight:600;margin-top:2px;">أكاديمية البرمجة العربية</div>
+    </div>
+  </div>
+  <div class="logo-meta">
+    <span class="logo-name">خط قوس قزح</span>
+    <span class="logo-tag tag-minimal">مينيمال</span>
+  </div>
+  <button class="copy-btn" onclick="copyLogo('l18',this)">نسخ الكود</button>
+</div>
+
+<!-- 19 -->
+<div class="logo-card" data-tags="light minimal">
+  <span class="logo-num">#19</span>
+  <div class="logo-wrap">
+    <div id="l19" style="display:flex;align-items:center;gap:0;user-select:none;">
+      <div style="font-family:'Space Mono',monospace;font-size:30px;font-weight:700;color:#4E148C;">[</div>
+      <div style="display:flex;flex-direction:column;align-items:center;padding:0 8px;">
+        <span style="font-family:'Tajawal',sans-serif;font-size:24px;font-weight:800;color:#7C3AED;line-height:1;">عربي</span>
+        <div style="height:2px;width:100%;background:#00AECC;margin:2px 0;"></div>
+        <span style="font-family:'Poppins',sans-serif;font-size:12px;font-weight:700;color:#4E148C;letter-spacing:2px;line-height:1;">STACK</span>
+      </div>
+      <div style="font-family:'Space Mono',monospace;font-size:30px;font-weight:700;color:#4E148C;">]</div>
+    </div>
+  </div>
+  <div class="logo-meta">
+    <span class="logo-name">أقواس مربعة</span>
+    <span class="logo-tag tag-minimal">مينيمال</span>
+  </div>
+  <button class="copy-btn" onclick="copyLogo('l19',this)">نسخ الكود</button>
+</div>
+
+<!-- 20 -->
+<div class="logo-card" data-tags="light minimal">
+  <span class="logo-num">#20</span>
+  <div class="logo-wrap">
+    <div id="l20" style="display:flex;align-items:center;gap:10px;font-family:'Exo 2',sans-serif;user-select:none;">
+      <div style="display:flex;flex-direction:column;justify-content:center;gap:4px;">
+        <div style="width:4px;height:18px;background:#4E148C;border-radius:2px;"></div>
+        <div style="width:4px;height:12px;background:#7C3AED;border-radius:2px;"></div>
+        <div style="width:4px;height:8px;background:#00DFFC;border-radius:2px;"></div>
+      </div>
+      <span style="font-size:28px;font-weight:800;color:#1a1a2e;letter-spacing:1px;">ARABYSTACK</span>
+    </div>
+  </div>
+  <div class="logo-meta">
+    <span class="logo-name">خط عمودي</span>
+    <span class="logo-tag tag-minimal">مينيمال</span>
+  </div>
+  <button class="copy-btn" onclick="copyLogo('l20',this)">نسخ الكود</button>
+</div>
+
+<!-- 21 -->
+<div class="logo-card" data-tags="light minimal">
+  <span class="logo-num">#21</span>
+  <div class="logo-wrap">
+    <div id="l21" style="display:flex;flex-direction:column;align-items:center;gap:6px;user-select:none;">
+      <div style="font-family:'Poppins',sans-serif;font-size:28px;font-weight:900;letter-spacing:4px;color:#4E148C;border:2.5px solid #4E148C;padding:6px 18px;">ARABYSTACK</div>
+      <div style="font-family:'Tajawal',sans-serif;font-size:13px;color:#7C3AED;letter-spacing:3px;">البرمجة بالعربي</div>
+    </div>
+  </div>
+  <div class="logo-meta">
+    <span class="logo-name">إطار مربع</span>
+    <span class="logo-tag tag-minimal">مينيمال · بولد</span>
+  </div>
+  <button class="copy-btn" onclick="copyLogo('l21',this)">نسخ الكود</button>
+</div>
+
+<!-- 22 -->
+<div class="logo-card" data-tags="light minimal">
+  <span class="logo-num">#22</span>
+  <div class="logo-wrap">
+    <div id="l22" style="display:flex;align-items:center;gap:12px;user-select:none;">
+      <div style="font-family:'Tajawal',sans-serif;font-size:52px;font-weight:800;color:#4E148C;line-height:1;">ع</div>
+      <div style="width:1px;height:44px;background:linear-gradient(to bottom,#4E148C,#00DFFC);"></div>
+      <div style="font-family:'Poppins',sans-serif;">
+        <div style="font-size:18px;font-weight:700;color:#1a1a2e;letter-spacing:2px;line-height:1;">ARABYSTACK</div>
+        <div style="font-size:10px;color:#7C3AED;letter-spacing:2px;margin-top:4px;">CODING ACADEMY</div>
+      </div>
+    </div>
+  </div>
+  <div class="logo-meta">
+    <span class="logo-name">فاصل متدرج</span>
+    <span class="logo-tag tag-minimal">مينيمال</span>
+  </div>
+  <button class="copy-btn" onclick="copyLogo('l22',this)">نسخ الكود</button>
+</div>
+
+<!-- ═══ SECTION: ARABIC STYLE ═══ -->
+<div class="section-label">عربي</div>
+
+<!-- 23 -->
+<div class="logo-card" data-tags="light arabic">
+  <span class="logo-num">#23</span>
+  <div class="logo-wrap">
+    <div id="l23" style="display:flex;flex-direction:column;align-items:center;gap:4px;user-select:none;">
+      <div style="font-family:'Tajawal',sans-serif;font-size:38px;font-weight:800;color:#4E148C;line-height:1;">أَرَبِي</div>
+      <div style="display:flex;align-items:center;gap:6px;">
+        <div style="height:1px;width:40px;background:#00AECC;"></div>
+        <span style="font-family:'Poppins',sans-serif;font-size:12px;font-weight:700;color:#7C3AED;letter-spacing:3px;">STACK</span>
+        <div style="height:1px;width:40px;background:#00AECC;"></div>
+      </div>
+    </div>
+  </div>
+  <div class="logo-meta">
+    <span class="logo-name">عربي بالكامل</span>
+    <span class="logo-tag tag-arabic">عربي</span>
+  </div>
+  <button class="copy-btn" onclick="copyLogo('l23',this)">نسخ الكود</button>
+</div>
+
+<!-- 24 -->
+<div class="logo-card" data-tags="light arabic">
+  <span class="logo-num">#24</span>
+  <div class="logo-wrap">
+    <div id="l24" style="display:flex;flex-direction:column;align-items:center;gap:4px;user-select:none;font-family:'Tajawal',sans-serif;">
+      <div style="font-size:20px;font-weight:700;color:#7C3AED;letter-spacing:2px;">أكاديمية</div>
+      <div style="font-size:36px;font-weight:800;color:#4E148C;line-height:1;">أرابي ستاك</div>
+      <div style="font-size:12px;color:#00AECC;letter-spacing:1px;font-family:'Poppins',sans-serif;font-weight:600;">ARABYSTACK.COM</div>
+    </div>
+  </div>
+  <div class="logo-meta">
+    <span class="logo-name">اسم عربي كامل</span>
+    <span class="logo-tag tag-arabic">عربي</span>
+  </div>
+  <button class="copy-btn" onclick="copyLogo('l24',this)">نسخ الكود</button>
+</div>
+
+<!-- 25 -->
+<div class="logo-card" data-tags="light arabic">
+  <span class="logo-num">#25</span>
+  <div class="logo-wrap">
+    <div id="l25" style="display:flex;align-items:center;gap:10px;user-select:none;">
+      <div style="width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,#4E148C,#7C3AED);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 15px rgba(78,20,140,0.3);">
+        <span style="font-family:'Tajawal',sans-serif;color:#fff;font-size:30px;font-weight:800;">ع</span>
+      </div>
+      <div>
+        <div style="font-family:'Tajawal',sans-serif;font-size:24px;font-weight:800;color:#4E148C;line-height:1.1;">أرابي ستاك</div>
+        <div style="font-family:'Poppins',sans-serif;font-size:11px;color:#00AECC;letter-spacing:2px;font-weight:600;margin-top:2px;">ARABYSTACK</div>
+      </div>
+    </div>
+  </div>
+  <div class="logo-meta">
+    <span class="logo-name">ثنائي اللغة</span>
+    <span class="logo-tag tag-arabic">عربي + إنجليزي</span>
+  </div>
+  <button class="copy-btn" onclick="copyLogo('l25',this)">نسخ الكود</button>
+</div>
+
+<!-- 26 -->
+<div class="logo-card" data-tags="dark arabic" style="background:#0d0d0d;border-color:#1a0d30;">
+  <span class="logo-num" style="color:#7C3AED;">#26</span>
+  <div class="logo-wrap">
+    <div id="l26" style="display:flex;flex-direction:column;align-items:center;gap:4px;user-select:none;">
+      <div style="font-family:'Tajawal',sans-serif;font-size:42px;font-weight:800;color:#a78bfa;line-height:1;">عَرَبِي</div>
+      <div style="font-family:'Orbitron',sans-serif;font-size:14px;font-weight:800;color:#00DFFC;letter-spacing:4px;">STACK</div>
+      <div style="height:1px;width:80px;background:linear-gradient(90deg,transparent,#7C3AED,transparent);margin-top:2px;"></div>
+    </div>
+  </div>
+  <div class="logo-meta">
+    <span class="logo-name" style="color:#666;">عربي داكن</span>
+    <span class="logo-tag tag-dark">داكن · عربي</span>
+  </div>
+  <button class="copy-btn" onclick="copyLogo('l26',this)">نسخ الكود</button>
+</div>
+
+<!-- ═══ SECTION: BOLD / IMPACT ═══ -->
+<div class="section-label">بولد وقوي</div>
+
+<!-- 27 -->
+<div class="logo-card" data-tags="light bold">
+  <span class="logo-num">#27</span>
+  <div class="logo-wrap">
+    <div id="l27" style="display:flex;align-items:center;gap:0;user-select:none;">
+      <div style="background:#4E148C;padding:10px 14px;border-radius:10px 0 0 10px;">
+        <span style="font-family:'Tajawal',sans-serif;color:#fff;font-size:26px;font-weight:800;display:block;line-height:1;">ع</span>
+      </div>
+      <div style="background:#f0e7ff;padding:10px 16px;border-radius:0 10px 10px 0;border:1.5px solid #4E148C;border-left:none;">
+        <span style="font-size:20px;font-weight:700;color:#4E148C;letter-spacing:1px;display:block;line-height:1;font-family:'Poppins',sans-serif;">ARABYSTACK</span>
+        <span style="font-size:10px;color:#7C3AED;letter-spacing:2px;display:block;margin-top:2px;font-family:'Cairo',sans-serif;">أكاديمية</span>
+      </div>
+    </div>
+  </div>
+  <div class="logo-meta">
+    <span class="logo-name">شريط ملون</span>
+    <span class="logo-tag tag-bold">بولد</span>
+  </div>
+  <button class="copy-btn" onclick="copyLogo('l27',this)">نسخ الكود</button>
+</div>
+
+<!-- 28 -->
+<div class="logo-card" data-tags="light bold">
+  <span class="logo-num">#28</span>
+  <div class="logo-wrap">
+    <div id="l28" style="display:flex;align-items:center;gap:10px;font-family:'Poppins',sans-serif;user-select:none;">
+      <div style="width:54px;height:54px;border-radius:14px;background:#4E148C;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;">
+        <span style="font-family:'Tajawal',sans-serif;color:#fff;font-size:22px;font-weight:800;line-height:1;">ع</span>
+        <div style="width:24px;height:1.5px;background:rgba(255,255,255,0.4);"></div>
+        <span style="color:rgba(255,255,255,0.7);font-size:8px;letter-spacing:1.5px;font-weight:600;line-height:1;">ARABY</span>
+      </div>
+      <div>
+        <span style="font-size:26px;font-weight:700;color:#1a1a2e;letter-spacing:1px;display:block;line-height:1;">STACK</span>
+        <div style="font-size:10px;color:#7C3AED;letter-spacing:2px;font-weight:600;margin-top:1px;">CODING ACADEMY</div>
+      </div>
+    </div>
+  </div>
+  <div class="logo-meta">
+    <span class="logo-name">أيقونة مدمجة</span>
+    <span class="logo-tag tag-bold">بولد</span>
+  </div>
+  <button class="copy-btn" onclick="copyLogo('l28',this)">نسخ الكود</button>
+</div>
+
+<!-- 29 -->
+<div class="logo-card" data-tags="dark bold" style="background:#1a1035;border-color:#2d1f5e;">
+  <span class="logo-num" style="color:#a78bfa;">#29</span>
+  <div class="logo-wrap">
+    <div id="l29" style="display:flex;flex-direction:column;align-items:flex-start;user-select:none;gap:0;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:52px;color:#fff;letter-spacing:3px;line-height:.9;">ARABY</div>
+      <div style="display:flex;align-items:center;gap:8px;margin-top:2px;">
+        <div style="height:4px;background:#00DFFC;flex:1;border-radius:2px;"></div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:52px;color:#7C3AED;letter-spacing:3px;line-height:.9;">STACK</div>
+      </div>
+    </div>
+  </div>
+  <div class="logo-meta">
+    <span class="logo-name" style="color:#666;">ستاك كبير</span>
+    <span class="logo-tag tag-dark">داكن · بولد</span>
+  </div>
+  <button class="copy-btn" onclick="copyLogo('l29',this)">نسخ الكود</button>
+</div>
+
+<!-- 30 -->
+<div class="logo-card" data-tags="light bold">
+  <span class="logo-num">#30</span>
+  <div class="logo-wrap">
+    <div id="l30" style="position:relative;user-select:none;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:46px;color:#4E148C;letter-spacing:2px;position:relative;z-index:1;">ARABYSTACK</div>
+      <div style="position:absolute;bottom:4px;left:0;right:0;height:12px;background:#00DFFC;opacity:0.25;z-index:0;border-radius:2px;"></div>
+    </div>
+  </div>
+  <div class="logo-meta">
+    <span class="logo-name">تمييز خلفي</span>
+    <span class="logo-tag tag-bold">بولد</span>
+  </div>
+  <button class="copy-btn" onclick="copyLogo('l30',this)">نسخ الكود</button>
+</div>
+
+<!-- 31 -->
+<div class="logo-card" data-tags="light bold">
+  <span class="logo-num">#31</span>
+  <div class="logo-wrap">
+    <div id="l31" style="display:flex;flex-direction:column;align-items:center;user-select:none;gap:4px;">
+      <div style="display:flex;align-items:center;gap:6px;">
+        <span style="font-family:'Space Mono',monospace;font-size:22px;color:#4E148C;font-weight:700;">{</span>
+        <span style="font-family:'Poppins',sans-serif;font-size:28px;font-weight:900;color:#4E148C;letter-spacing:1px;">AS</span>
+        <span style="font-family:'Space Mono',monospace;font-size:22px;color:#4E148C;font-weight:700;">}</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;">
+        <div style="height:1px;width:30px;background:#00AECC;"></div>
+        <span style="font-family:'Poppins',sans-serif;font-size:10px;color:#7C3AED;letter-spacing:3px;font-weight:600;">ARABYSTACK</span>
+        <div style="height:1px;width:30px;background:#00AECC;"></div>
+      </div>
+    </div>
+  </div>
+  <div class="logo-meta">
+    <span class="logo-name">اختصار AS</span>
+    <span class="logo-tag tag-bold">بولد · مينيمال</span>
+  </div>
+  <button class="copy-btn" onclick="copyLogo('l31',this)">نسخ الكود</button>
+</div>
+
+<!-- ═══ SECTION: CREATIVE ═══ -->
+<div class="section-label">إبداعي ومتنوع</div>
+
+<!-- 32 -->
+<div class="logo-card" data-tags="light minimal">
+  <span class="logo-num">#32</span>
+  <div class="logo-wrap">
+    <div id="l32" style="display:flex;align-items:center;gap:8px;user-select:none;">
+      <svg width="50" height="50" viewBox="0 0 50 50">
+        <rect x="2" y="2" width="46" height="46" rx="10" fill="none" stroke="#4E148C" stroke-width="2.5"/>
+        <text x="25" y="35" font-family="Tajawal,sans-serif" font-size="26" font-weight="800" fill="#4E148C" text-anchor="middle">ع</text>
+        <rect x="8" y="40" width="10" height="4" rx="2" fill="#7C3AED"/>
+        <rect x="21" y="40" width="10" height="4" rx="2" fill="#00DFFC"/>
+        <rect x="34" y="40" width="8" height="4" rx="2" fill="#4E148C" opacity="0.4"/>
+      </svg>
+      <div style="font-family:'Poppins',sans-serif;">
+        <div style="font-size:20px;font-weight:800;color:#4E148C;letter-spacing:1.5px;line-height:1;">ARABYSTACK</div>
+        <div style="font-size:10px;color:#7C3AED;letter-spacing:2px;font-weight:600;margin-top:3px;">CODING ACADEMY</div>
+      </div>
+    </div>
+  </div>
+  <div class="logo-meta">
+    <span class="logo-name">SVG مربع</span>
+    <span class="logo-tag tag-light">فاتح · SVG</span>
+  </div>
+  <button class="copy-btn" onclick="copyLogo('l32',this)">نسخ الكود</button>
+</div>
+
+<!-- 33 -->
+<div class="logo-card" data-tags="dark tech" style="background:#0d0d0d;border-color:#222;">
+  <span class="logo-num" style="color:#7C3AED;">#33</span>
+  <div class="logo-wrap">
+    <div id="l33" style="display:flex;flex-direction:column;align-items:flex-start;gap:4px;user-select:none;font-family:'Space Mono',monospace;">
+      <div style="color:#555;font-size:11px;"><span style="color:#7C3AED;">$</span> arabystack --lang arabic</div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div style="width:8px;height:8px;border-radius:50%;background:#00ff88;animation:blink 1.2s infinite;"></div>
+        <span style="color:#fff;font-size:18px;font-weight:700;">ARABYSTACK</span>
+      </div>
+      <div style="color:#444;font-size:10px;">Ready to code in Arabic ■</div>
+    </div>
+  </div>
+  <div class="logo-meta">
+    <span class="logo-name" style="color:#666;">CLI ترمينال</span>
+    <span class="logo-tag tag-dark">داكن · تك</span>
+  </div>
+  <button class="copy-btn" onclick="copyLogo('l33',this)">نسخ الكود</button>
+</div>
+
+<!-- 34 -->
+<div class="logo-card" data-tags="light arabic bold">
+  <span class="logo-num">#34</span>
+  <div class="logo-wrap">
+    <div id="l34" style="display:flex;flex-direction:column;align-items:center;gap:2px;user-select:none;">
+      <div style="display:flex;gap:0;align-items:stretch;">
+        <div style="background:#4E148C;width:10px;border-radius:4px 0 0 4px;"></div>
+        <div style="border:2px solid #4E148C;border-left:none;border-radius:0 8px 8px 0;padding:8px 16px;">
+          <div style="font-family:'Tajawal',sans-serif;font-size:28px;font-weight:800;color:#4E148C;line-height:1;">أرابي ستاك</div>
+          <div style="font-family:'Poppins',sans-serif;font-size:10px;color:#7C3AED;letter-spacing:2px;font-weight:600;margin-top:2px;">ARABYSTACK • CODING ACADEMY</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="logo-meta">
+    <span class="logo-name">إطار جانبي عربي</span>
+    <span class="logo-tag tag-arabic">عربي · بولد</span>
+  </div>
+  <button class="copy-btn" onclick="copyLogo('l34',this)">نسخ الكود</button>
+</div>
+
+<!-- 35 -->
+<div class="logo-card" data-tags="dark bold" style="background:#0a0a14;border-color:#1a0d30;">
+  <span class="logo-num" style="color:#7C3AED;">#35</span>
+  <div class="logo-wrap">
+    <div id="l35" style="display:flex;flex-direction:column;align-items:center;gap:4px;user-select:none;">
+      <div style="display:flex;align-items:center;gap:4px;">
+        <div style="width:20px;height:3px;background:#7C3AED;border-radius:2px;"></div>
+        <div style="width:8px;height:8px;border-radius:50%;background:#00DFFC;"></div>
+        <div style="width:20px;height:3px;background:#7C3AED;border-radius:2px;"></div>
+      </div>
+      <div style="font-family:'Orbitron',sans-serif;font-size:22px;font-weight:800;color:#fff;letter-spacing:3px;">ARABYSTACK</div>
+      <div style="font-family:'Tajawal',sans-serif;font-size:14px;color:#7C3AED;font-weight:700;letter-spacing:2px;">البرمجة العربية</div>
+      <div style="display:flex;align-items:center;gap:4px;">
+        <div style="width:20px;height:3px;background:#00DFFC;border-radius:2px;"></div>
+        <div style="width:8px;height:8px;border-radius:50%;background:#7C3AED;"></div>
+        <div style="width:20px;height:3px;background:#00DFFC;border-radius:2px;"></div>
+      </div>
+    </div>
+  </div>
+  <div class="logo-meta">
+    <span class="logo-name" style="color:#666;">زخرفة نقطية</span>
+    <span class="logo-tag tag-dark">داكن · بولد</span>
+  </div>
+  <button class="copy-btn" onclick="copyLogo('l35',this)">نسخ الكود</button>
+</div>
+
+<!-- 36 -->
+<div class="logo-card" data-tags="light minimal">
+  <span class="logo-num">#36</span>
+  <div class="logo-wrap">
+    <div id="l36" style="display:flex;align-items:center;gap:10px;user-select:none;font-family:'Exo 2',sans-serif;">
+      <div style="width:52px;height:52px;border-radius:12px;background:#f5f0ff;display:flex;align-items:center;justify-content:center;border:1.5px solid #e0d4ff;">
+        <span style="font-size:28px;font-weight:800;color:#4E148C;font-family:'Poppins',sans-serif;">AS</span>
+      </div>
+      <div style="display:flex;flex-direction:column;">
+        <span style="font-size:20px;font-weight:800;color:#1a1a2e;letter-spacing:1px;line-height:1.1;">ARABYSTACK</span>
+        <span style="font-size:10px;color:#7C3AED;letter-spacing:3px;font-weight:600;margin-top:2px;">أكاديمية البرمجة</span>
+      </div>
+    </div>
+  </div>
+  <div class="logo-meta">
+    <span class="logo-name">مونوغرام AS</span>
+    <span class="logo-tag tag-minimal">مينيمال</span>
+  </div>
+  <button class="copy-btn" onclick="copyLogo('l36',this)">نسخ الكود</button>
+</div>
+
+<!-- 37 -->
+<div class="logo-card" data-tags="dark arabic" style="background:#1a1035;border-color:#2d1f5e;">
+  <span class="logo-num" style="color:#a78bfa;">#37</span>
+  <div class="logo-wrap">
+    <div id="l37" style="display:flex;align-items:center;gap:12px;user-select:none;">
+      <div style="position:relative;width:60px;height:60px;">
+        <div style="position:absolute;inset:0;border:3px solid #7C3AED;border-radius:50%;"></div>
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;">
+          <span style="font-family:'Tajawal',sans-serif;color:#fff;font-size:20px;font-weight:800;">عربي</span>
+          <span style="font-family:'Poppins',sans-serif;color:#7C3AED;font-size:9px;letter-spacing:1px;font-weight:700;">STACK</span>
+        </div>
+      </div>
+      <div style="font-family:'Orbitron',sans-serif;font-size:18px;font-weight:800;color:#fff;letter-spacing:2px;display:flex;flex-direction:column;gap:2px;">
+        <span>ARABY</span>
+        <span style="color:#7C3AED;">STACK</span>
+      </div>
+    </div>
+  </div>
+  <div class="logo-meta">
+    <span class="logo-name" style="color:#666;">شعار دائري عربي</span>
+    <span class="logo-tag tag-dark">داكن · عربي</span>
+  </div>
+  <button class="copy-btn" onclick="copyLogo('l37',this)">نسخ الكود</button>
+</div>
+
+<!-- 38 -->
+<div class="logo-card" data-tags="light bold">
+  <span class="logo-num">#38</span>
+  <div class="logo-wrap">
+    <div id="l38" style="display:flex;flex-direction:column;align-items:center;user-select:none;gap:0;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:10px;color:#00AECC;">• CODING ACADEMY •</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:48px;color:#4E148C;letter-spacing:3px;line-height:.9;">ARABYSTACK</div>
+      <div style="height:3px;width:100%;background:#4E148C;margin:4px 0;"></div>
+      <div style="font-family:'Tajawal',sans-serif;font-size:14px;color:#7C3AED;font-weight:700;letter-spacing:3px;">البرمجة بالعربي</div>
+    </div>
+  </div>
+  <div class="logo-meta">
+    <span class="logo-name">هيدر أكاديمية</span>
+    <span class="logo-tag tag-bold">بولد · كلاسيك</span>
+  </div>
+  <button class="copy-btn" onclick="copyLogo('l38',this)">نسخ الكود</button>
+</div>
+
+<!-- 39 -->
+<div class="logo-card" data-tags="light tech">
+  <span class="logo-num">#39</span>
+  <div class="logo-wrap">
+    <div id="l39" style="display:flex;align-items:center;gap:0;user-select:none;">
+      <div style="padding:10px 12px;background:#4E148C;border-radius:10px 0 0 10px;display:flex;align-items:center;justify-content:center;">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <polyline points="6,20 2,14 6,8" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <polyline points="22,8 26,14 22,20" stroke="#00DFFC" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <line x1="17" y1="5" x2="11" y2="23" stroke="#a78bfa" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div style="border:2px solid #4E148C;border-left:none;border-radius:0 10px 10px 0;padding:10px 14px;">
+        <div style="font-family:'Poppins',sans-serif;font-size:18px;font-weight:800;color:#4E148C;letter-spacing:1px;line-height:1;">ARABYSTACK</div>
+        <div style="font-family:'Tajawal',sans-serif;font-size:11px;color:#7C3AED;font-weight:700;margin-top:1px;">البرمجة العربية</div>
+      </div>
+    </div>
+  </div>
+  <div class="logo-meta">
+    <span class="logo-name">أيقونة كود &lt;/&gt;</span>
+    <span class="logo-tag tag-tech">تك · SVG</span>
+  </div>
+  <button class="copy-btn" onclick="copyLogo('l39',this)">نسخ الكود</button>
+</div>
+
+<!-- 40 -->
+<div class="logo-card" data-tags="dark bold" style="background:#0a0a14;border-color:#1a0d30;">
+  <span class="logo-num" style="color:#7C3AED;">#40</span>
+  <div class="logo-wrap">
+    <div id="l40" style="display:flex;flex-direction:column;align-items:center;gap:6px;user-select:none;">
+      <div style="display:flex;align-items:center;gap:4px;">
+        <div style="width:6px;height:6px;border-radius:50%;background:#7C3AED;"></div>
+        <div style="width:6px;height:6px;border-radius:50%;background:#00DFFC;"></div>
+        <div style="width:6px;height:6px;border-radius:50%;background:#a78bfa;"></div>
+      </div>
+      <div style="display:flex;align-items:baseline;gap:2px;">
+        <span style="font-family:'Orbitron',sans-serif;font-size:30px;font-weight:800;color:#fff;letter-spacing:2px;">ARABY</span>
+        <span style="font-family:'Orbitron',sans-serif;font-size:30px;font-weight:800;color:#7C3AED;letter-spacing:2px;">STACK</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;">
+        <div style="width:40px;height:1px;background:rgba(124,58,237,.4);"></div>
+        <span style="font-family:'Tajawal',sans-serif;color:#555;font-size:12px;font-weight:700;">أكاديمية البرمجة العربية</span>
+        <div style="width:40px;height:1px;background:rgba(0,223,252,.4);"></div>
+      </div>
+    </div>
+  </div>
+  <div class="logo-meta">
+    <span class="logo-name" style="color:#666;">نهائي فضائي</span>
+    <span class="logo-tag tag-dark">داكن · بولد</span>
+  </div>
+  <button class="copy-btn" onclick="copyLogo('l40',this)">نسخ الكود</button>
+</div>
+
+</div><!-- /grid -->
+
+<footer>
+  &copy; 2025 ArabyStack · أكاديمية البرمجة العربية · arabystack.com
+</footer>
+
+<style>
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+</style>
+
+<script>
+/* ── particles ── */
+(function(){
+  const c = document.getElementById('particles');
+  const colors = ['#4E148C','#7C3AED','#00DFFC','#a78bfa'];
+  for(let i=0;i<25;i++){
+    const p = document.createElement('div');
+    p.className='particle';
+    const s = Math.random()*12+4;
+    p.style.cssText = `
+      width:${s}px;height:${s}px;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      left:${Math.random()*100}%;
+      animation-duration:${Math.random()*20+15}s;
+      animation-delay:${Math.random()*20}s;
+    `;
+    c.appendChild(p);
+  }
+})();
+
+/* ── filter ── */
+function filterCards(tag, btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const cards = document.querySelectorAll('.logo-card');
+  let shown = 0;
+  cards.forEach(card=>{
+    if(tag==='all' || (card.dataset.tags||'').includes(tag)){
+      card.classList.remove('hidden');
+      shown++;
+    } else {
+      card.classList.add('hidden');
+    }
+  });
+  document.getElementById('cnt').textContent = shown;
+  // re-trigger animation
+  cards.forEach(c=>{ if(!c.classList.contains('hidden')){ c.style.animation='none'; void c.offsetWidth; c.style.animation=''; }});
+}
+
+/* ── search ── */
+function searchCards(q){
+  const cards = document.querySelectorAll('.logo-card');
+  const lq = q.toLowerCase();
+  let shown = 0;
+  cards.forEach(card=>{
+    const name = card.querySelector('.logo-name')?.textContent.toLowerCase()||'';
+    const tags = (card.dataset.tags||'').toLowerCase();
+    if(!q || name.includes(lq) || tags.includes(lq)){
+      card.classList.remove('hidden');
+      shown++;
+    } else {
+      card.classList.add('hidden');
+    }
+  });
+  document.getElementById('cnt').textContent = shown;
+}
+
+/* ── copy ── */
+function copyLogo(id, btn){
+  const el = document.getElementById(id);
+  if(!el) return;
+  navigator.clipboard.writeText(el.outerHTML).then(()=>{
+    btn.textContent = '✓ تم النسخ!';
+    btn.classList.add('copied');
+    showToast();
+    setTimeout(()=>{ btn.textContent='نسخ الكود'; btn.classList.remove('copied'); }, 2200);
+  });
+}
+
+/* ── toast ── */
+function showToast(){
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2000);
+}
+
+/* ── theme ── */
+function toggleTheme(){
+  const b = document.body;
+  const isDark = b.dataset.theme==='dark';
+  b.dataset.theme = isDark ? 'light' : 'dark';
+  document.querySelector('.theme-toggle').textContent = isDark ? '🌙 الوضع الداكن' : '☀️ الوضع الفاتح';
+}
+
+/* ── card entrance animation stagger ── */
+document.querySelectorAll('.logo-card').forEach((c,i)=>{
+  c.style.animationDelay = (i*0.04)+'s';
+});
+</script>
+</body>
+</html>
